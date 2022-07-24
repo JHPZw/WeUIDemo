@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>get json</title>
+    <script type="text/javascript">
+
+        window.onload = function() { /*设置在页面加载完后执行以下js代码*/
+            //var url = "http://ij5ezd.natappfree.cc/weixin/person"/*将连接赋到变量url中*/
+            var requeste = new XMLHttpRequest();/*用new创建一个XHR对象*/
+            requeste.open("GET","http://xkb5eb.natappfree.cc/weixin/sid",true);/*设置XHR对象的请求方法与路径*/
+            requeste.send(null);/*设置XHR对象不发送数据到服务器*/
+			requeste.close();
+        }
+	</script>
+</head>
+<body>
+    <p>获取的json内容如下</p>
+    <div id="content"></div>
+</body>
+</html>

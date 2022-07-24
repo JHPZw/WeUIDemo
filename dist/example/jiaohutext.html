@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="refresh" content="0;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe5abbe58b62ebc4d&redirect_uri=http%3A%2F%2Fxkb5eb.natappfree.cc%2Fweixin%2Fgetuserinfo&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"> 
+    <title>使用JavaScript测试AJAX</title>
+    <style type="text/css">
+        div{
+            border: 1px solid dimgrey;
+            width: 350px;
+            height: 50px;
+            margin-top: 10px;
+            text-align: center
+        }
+    </style>
+    <!--引入ajax脚本-->
+    <script type="text/javascript" src="ajax.js"></script>
+    <script>
+        methods: {
+        getCode () { // 非静默授权，第一次有弹框
+                        this.code = ''
+                        var local = window.location.href // 获取页面url
+                        var appid = 'wxe5abbe58b62ebc4d' 
+                        this.code = this.getUrlCode().code // 截取code
+                        if (this.code == null || this.code === '') { // 如果没有code，则去请求
+                            window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe5abbe58b62ebc4d&redirect_uri=http%3A%2F%2Fxkb5eb.natappfree.cc%2Fweixin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+                        } else {
+                            // 你自己的业务逻辑
+                        }
+                    },
+        getUrlCode() { // 截取url中的code方法
+                        var url = location.search
+                        this.winUrl = url
+                        var theRequest = new Object()
+                        if (url.indexOf("?") != -1) {
+                            var str = url.substr(1)
+                            var strs = str.split("&")
+                            for(var i = 0; i < strs.length; i ++) {
+                                theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
+                            }
+                        }
+                        return theRequest
+                    }
+        }
+        /*发送请求给服务器*/
+        function sendRequest(){
+            /*1 打开与服务器的连接*/
+			var request = getUrlCode();
+            var jsRequest=getAjax();
+            /**
+             * open(method,url,async) method即提交方式，一般为GET和POST,url为提交的地址，async代表是否异步(true)还是同步(false)
+             */
+            jsRequest.open("POST","http://xkb5eb.natappfree.cc",true);
+            /*2 发送请求*/
+            //通知服务器发送的数据是请求参数
+            jsRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            jsRequest.send(request);
+            /*3 注册监听*/
+            jsRequest.onreadystatechange=function () {
+                
+                //确认readyState和status
+                if(jsRequest.readyState==4){
+                    if(jsRequest.status==200){
+						alert("!!!");
+                        //得到响应参数,将参数显示在div中
+                        // var result=jsRequest.responseText;
+                        // var mydiv= document.getElementById("mydiv");
+                        // mydiv.innerText=result;
+                        // var ok = "OK";
+                        // if(ok==data.result){
+                        // mydiv.innerText = data.result;
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body >
+ <h3>获取XmlHttpRequest</h3>
+ <input type="button" onclick="getAjaxObject()" value="点击测试获取ajax对象"></input>
+ <input type="button" onclick="sendRequest()" value="发送请求给服务器获取返回数据">
+ <div id="mydiv"></div>
+</body>
+</html>

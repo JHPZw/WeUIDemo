@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <title>WeUI</title>
+    <link rel="stylesheet" href="../style/weui.css"/>
+    <link rel="stylesheet" href="./example.css"/>
+    <script type="text/javascript" src="ajax.js"></script>
+</head>
+<body ontouchstart>
+    <script type="text/javascript">
+        document.body.style.webkitTextSizeAdjust = JSON.parse(window.__wxWebEnv.getEnv()).fontScale + '%';
+    </script>
+    <span aria-hidden="true" id="js_a11y_comma" class="weui-hidden_abs">，</span>
+    <div role="alert" class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container"></div>
+    <script type="text/html" id="tpl_home">
+	
+	<div class="page">
+	    <div class="page__bd" style="height: 100%;">
+	        <div class="weui-tab">
+	            <div id="panel1" role="tabpanel" aria-labelledby="tab1" class="weui-tab__panel">
+				<br />
+					<br /><br /><br />
+					<label for="js_input1" class="weui-cell weui-cell_active" id="js_cell">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;学号</span></div>
+					  <div class="weui-cell__bd">
+					      <input id="js_input1" class="weui-input" type="text" placeholder="学号信息" maxlength="10">
+					  </div>
+					</label>
+					<label for="js_input2" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;姓名</span></div>
+					  <div class="weui-cell__bd">
+					      <input id="js_input2" class="weui-input" type="text" placeholder="姓名信息">
+					  </div>
+					</label>
+					<label for="js_input3" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;班级</span></div>
+					  <div class="weui-cell__bd">
+					      <textarea name="js_put3" class="weui-input" type="text" placeholder="班级信息" >计科院19软件系</textarea>
+					  </div>
+					</label>
+					<label for="js_input4" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;课程</span></div>
+					  <div class="weui-cell__bd">
+					      <textarea name="js_put4" class="weui-input" type="text" placeholder="课程信息" >软件体系结构</textarea>
+					  </div>
+					</label>
+					<label for="js_input5" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;签到码</span></div>
+					  <div class="weui-cell__bd">
+					      <input id="js_input5" class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入4位签到码" maxlength="4" />
+					  </div>
+					</label>
+                    <div id="content"></div>
+					<div class="weui-form__opr-area">
+					  <button class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">完成签到</button>
+					</div>
+				</div>
+	            <div id="panel2" role="tabpanel" aria-labelledby="tab2" class="weui-tab__panel" style="display: none;">
+				<br />
+					<br /><br /><br />
+					<label for="js_input2" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;课程</span></div>
+					  <div class="weui-cell__bd">
+					      <textarea name="description" class="weui-input" type="text" placeholder="课程信息" >软件体系结构</textarea>
+					  </div>
+					</label>
+					<label for="js_input2" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;班级</span></div>
+					  <div class="weui-cell__bd">
+					      <textarea name="description" class="weui-input" type="text" placeholder="班级信息" >计科院19软件系</textarea>
+					  </div>
+					</label>
+					<label for="js_input6" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;发起码</span></div>
+					  <div class="weui-cell__bd">
+					      <input id="js_input6" class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入4位发起码" maxlength="4" />
+					  </div>
+					</label>
+                    <div id="contentt"></div>
+					<button class="weui-btn weui-btn_primary" id="showTooltipss">发起签到</button>
+					<a href="./help.html" role="button" class="weui-btn weui-btn_primary">辅助签到</a>
+                    <a href="./excelPOST.html" role="button" class="weui-btn weui-btn_primary">导入名单</a>
+					<!-- <a href="javascript:" role="button" class="weui-btn weui-btn_primary">导出考勤</a> -->
+				</div>
+	            <div id="panel3" role="tabpanel" aria-labelledby="tab3" class="weui-tab__panel" style="display: none;">
+					<div class="icon-box">
+					<!-- <br /><br /><br /><br /> -->
+					    <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp; -->
+						<!-- <i role="img" title="强烈警告" class="weui-icon-warn weui-icon_msg"></i>
+					    <h2 style="text-align: center;">由于经费问题，</h2>
+					    <h2 style="text-align: center;">该页面暂未开放！！</h2> -->
+					</div>
+                    <!-- <p style="text-align: center;">可以移步到我的博客一观+_+</p>
+					<a href="https://blog.csdn.net/m0_47129108?spm=1000.2123.3001.5343" role="button" class="weui-btn weui-btn_primary">点此进入</a>	 -->
+					<label for="js_input9" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;发起码</span></div>
+					  <div class="weui-cell__bd">
+					      <input id="js_input9" class="weui-input" type="text" pattern="[0-9]*" placeholder="请输入4位发起码" maxlength="4" />
+					  </div>
+					</label>
+					<p style="text-align: center;">看看哪个小崽子没签到+_+</p>
+					<button class="weui-btn weui-btn_primary" href="./faxian.html" id="showTooltipsss">查询</button>
+				</div>
+	            <div id="panel4" role="tabpanel" aria-labelledby="tab4" class="weui-tab__panel" style="display: none;">
+				<br />
+					<br /><br /><br /><br />
+					<!-- <label for="js_input1" class="weui-cell weui-cell_active" id="js_cell">
+					  <div class="weui-cell__hd" ><span class="weui-label">&nbsp;&nbsp;&nbsp;用户</span></div>
+					  <div class="weui-cell__bd" ><div id="tex"></div>
+					      <textarea  name="description" class="weui-input" type="text" ></textarea>
+					  </div>
+					</label> -->
+					<label for="js_input1" class="weui-cell weui-cell_active" id="js_cell">
+					  <div class="weui-cell__hd" ><span class="weui-label">&nbsp;&nbsp;&nbsp;学号</span></div>
+					  <div class="weui-cell__bd" ><div id="texx"></div>
+					      <!-- <textarea  name="description" class="weui-input" type="text" ></textarea> -->
+							
+					  </div>
+					</label>
+					<label for="js_input2" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;姓名</span></div>
+					  <div class="weui-cell__bd"><div id="texxx"></div>
+					      <!-- <textarea name="description" class="weui-input" type="text" placeholder="姓名信息"></textarea> -->
+					  </div>
+					</label>
+					<label for="js_input2" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;班级</span></div>
+					  <div class="weui-cell__bd">
+					      <textarea name="description" class="weui-input" type="text" placeholder="班级信息" >计科院19软件系</textarea>
+					  </div>
+					</label>
+					<label for="js_input2" class="weui-cell weui-cell_active">
+					  <div class="weui-cell__hd"><span class="weui-label">&nbsp;&nbsp;&nbsp;课程</span></div>
+					  <div class="weui-cell__bd">
+					      <textarea name="description" class="weui-input" type="text" placeholder="课程信息" >软件体系结构</textarea>
+					  </div>
+					</label>
+					<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe5abbe58b62ebc4d&redirect_uri=http%3A%2F%2Fxkb5eb.natappfree.cc%2Fweixin%2Fgetxiugai&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect" role="button" class="weui-btn weui-btn_primary">修改个人信息</a>
+				</div>
+	            <div role="tablist" aria-label="选项卡标题" class="weui-tabbar">
+	                <div id="tab1" role="tab" aria-labelledby="t1_title" aria-describedby="t1_tips" aria-selected="true" aria-controls="panel1" class="weui-tabbar__item weui-bar__item_on">
+	                    <div id="t1_tips" aria-hidden="true" style="display: inline-block; position: relative;">
+	                        <img src="./images/icon_hap.png" alt="" class="weui-tabbar__icon">
+	                        <span class="weui-badge weui-badge_dot" role="img" alt="new" style="position: absolute; top: 0; right: -6px;"></span>
+	                    </div>
+	                    <p id="t1_title" aria-hidden="true" class="weui-tabbar__label">签到</p>
+	                </div>
+	                <div id="tab2" role="tab" aria-labelledby="t2_title" aria-selected="false" aria-controls="panel2" class="weui-tabbar__item">
+	                    <img src="./images/icon_cra.png" alt="" class="weui-tabbar__icon">
+	                    <p aria-hidden="true" id="t2_title" class="weui-tabbar__label">发起签到</p>
+	                </div>
+	                <div id="tab3" role="tab" aria-labelledby="t3_title" aria-describedby="t3_tips" aria-selected="false" aria-controls="panel3" class="weui-tabbar__item">
+	                    <div id="t3_tips" aria-hidden="true" style="display: inline-block; position: relative;">
+	                        <img src="./images/icon_sea.png" alt="" class="weui-tabbar__icon">
+	                        <span class="weui-badge weui-badge_dot" role="img" alt="new" style="position: absolute; top: 0; right: -6px;"></span>
+	                    </div>
+	                    <p id="t3_title" aria-hidden="true" class="weui-tabbar__label">发现</p>
+	                </div>
+	                <div id="tab4" role="tab" aria-labelledby="t4_title" aria-selected="false" aria-controls="panel4" class="weui-tabbar__item">
+	                    <img src="./images/icon_my.png" alt="" class="weui-tabbar__icon">
+	                    <p class="weui-tabbar__label" aria-hidden="true" id="t4_title">我</p>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+		<div id="js_toast" style="display: none;">
+		    <div class="weui-mask_transparent"></div>
+		    <div class="weui-toast">
+		        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+		        <p class="weui-toast__content">已完成</p>
+		    </div>
+		</div>
+		<div class="weui-footer weui-footer_fixed-bottom">
+		    <p class="weui-footer__text">Make by &copy; 2022.02 @p_z @ms @mo</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+	    $(function(){
+	        $('.weui-tabbar__item').on('click', function () {
+	            $(this).attr('aria-selected','true').addClass('weui-bar__item_on');
+	            $(this).siblings('.weui-bar__item_on').removeClass('weui-bar__item_on').attr('aria-selected','false');
+	            var panelId = '#' + $(this).attr('aria-controls');
+	            $(panelId).css('display','block');
+	            $(panelId).siblings('.weui-tab__panel').css('display','none');
+	        });
+	    });
+	</script>
+	</script>
+		<script type="text/template" id="footerTmpl"><div class="page__ft"></div></script>
+	    <script src="./zepto.min.js"></script>
+	    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	    <script src="https://res.wx.qq.com/t/wx_fed/cdn_libs/res/weui/1.2.8/weui.min.js"></script>
+	    <script src="./example.js"></script>
+	    <script src="./wah.js"></script>
+	    <script type="text/javascript">
+	      //WAH.default.init()
+	    </script>
+	    <script type="text/javascript">
+	      function wxReady(callback) {
+	        if (
+	          typeof WeixinJSBridge === 'object' &&
+	          typeof window.WeixinJSBridge.invoke === 'function'
+	        ) {
+	          callback()
+	        } else {
+	          document.addEventListener('WeixinJSBridgeReady', callback, false)
+	        }
+	      }
+	      wxReady(function() {
+	        WeixinJSBridge.invoke('getUserConfig', {}, function(res) {
+	          if (res.isCareMode) {
+	            document.body.setAttribute('data-weui-mode','care');
+	          }
+	        });
+	      });
+	
+	    </script>
+		<script type="text/javascript">
+		    $(function(){
+		      var $tooltips = $('.js_tooltips');
+		      var $toast = $('#js_toast');
+              var $input = $('#js_input5');
+              var $input1 = $('#js_input1');
+              var $input2 = $('#js_input2');
+		      $('#showTooltips').on('click', function(){
+		          if ($(this).hasClass('weui-btn_disabled')) return;
+		          // toptips的fixed, 如果有`animation`, `position: fixed`不生效
+		          $('.page.cell').removeClass('slideIn');
+                    var $value = $input.val();
+		          if($value.length < 4){
+		            $cell.addClass('weui-cell_warn');
+		            $tooltips.fadeIn(100);
+		            setTimeout(function () {
+		              $tooltips.fadeOut(100);
+		            }, 2000);
+		          }else{
+		            $toast.fadeIn(100);
+		            $toast.attr('aria-live','assertive');
+		            setTimeout(function () {
+		              $toast.fadeOut(100);
+		              $toast.attr('aria-live','off');
+		            }, 2000);
+		          }
+				  /*1 打开与服务器的连接*/
+				  var jsRequest=getAjax();
+				  var a = "js_input1=" + document.getElementById("js_input1").value
+                    +"&js_input2="+document.getElementById("js_input2").value
+                    +"&js_input5="+document.getElementById("js_input5").value;
+				  /**
+				   * open(method,url,async) method即提交方式，一般为GET和POST,url为提交的地址，async代表是否异步(true)还是同步(false)
+				   */
+				  jsRequest.open("POST","http://xkb5eb.natappfree.cc/weixin/qiandao",true);
+				  /*2 发送请求*/
+				  //通知服务器发送的数据是请求参数
+				  jsRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				  jsRequest.send(a);
+				  /*3 注册监听*/
+                  jsRequest.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                      if(jsRequest.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                          var contentdiv = document.getElementById("content");/*获取DOM中id为luck的p元素*/
+                          var jsoncontent = JSON.parse(jsRequest.responseText);/*将获取的信息解析为json对象*/
+                          var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+                          //jsondiv.innerText = jsoncontent.result;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+                          contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+                          var ok = "OK";
+                          if(ok == jsoncontent.result){
+                              //alert("签到成功");
+                          }
+                          else{
+                              alert("签到失败");
+                          }
+                      }
+                  }
+				  jsRequest.onreadystatechange=function () {
+				      //确认readyState和status
+				      if(jsRequest.readyState==4){
+				          if(jsRequest.status==200){
+                              // var contentdiv = document.getElementById("content");/*获取DOM中id为luck的p元素*/
+                              // var jsoncontent = JSON.parse(jsRequest.responseText);/*将获取的信息解析为json对象*/
+                              // var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+                              // //jsondiv.innerText = jsoncontent.result;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+                              // contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+                              // var ok = "OK";
+                              // if(ok == jsoncontent.result){
+                              //     alert("签到成功");
+                              // }
+                              // else{
+                              //     alert("签到失败");
+                              // }
+				              //得到响应参数,将参数显示在div中
+				              // var result=jsRequest.responseText;
+				              // var mydiv= document.getElementById("mydiv");
+				              // mydiv.innerText=result;
+				          }
+				      }
+				  }
+		      });
+
+		    });
+		</script>
+        <script type="text/javascript">
+            $(function(){
+              var $tooltips = $('.js_tooltips');
+              var $toast = $('#js_toast');
+              var $input = $('#js_input6');
+              $('#showTooltipss').on('click', function(){
+                  if ($(this).hasClass('weui-btn_disabled')) return;
+                  // toptips的fixed, 如果有`animation`, `position: fixed`不生效
+                  $('.page.cell').removeClass('slideIn');
+                    var $value = $input.val();
+                  if($value.length < 4){
+                    $cell.addClass('weui-cell_warn');
+                    $tooltips.fadeIn(100);
+                    setTimeout(function () {
+                      $tooltips.fadeOut(100);
+                    }, 2000);
+                  }else{
+                    $toast.fadeIn(100);
+                    $toast.attr('aria-live','assertive');
+                    setTimeout(function () {
+                      $toast.fadeOut(100);
+                      $toast.attr('aria-live','off');
+                    }, 2000);
+                  }
+        		  /*1 打开与服务器的连接*/
+        		  var jsRequest=getAjax();
+        		  var a = "js_input6=" + document.getElementById("js_input6").value;
+        		  /**
+        		   * open(method,url,async) method即提交方式，一般为GET和POST,url为提交的地址，async代表是否异步(true)还是同步(false)
+        		   */
+        		  jsRequest.open("POST","http://xkb5eb.natappfree.cc/weixin/faqi",true);
+        		  /*2 发送请求*/
+        		  //通知服务器发送的数据是请求参数
+        		  jsRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+        		  jsRequest.send(a);
+                  jsRequest.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                      if(jsRequest.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                          var contentdiv = document.getElementById("contentt");/*获取DOM中id为luck的p元素*/
+                          var jsoncontent = JSON.parse(jsRequest.responseText);/*将获取的信息解析为json对象*/
+                          var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+                          //jsondiv.innerText = jsoncontent.result;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+                          contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+                          var ok = "OK";
+                          if(ok == jsoncontent.result){
+                              alert("发起成功");
+                          }
+                          else{
+                              alert("发起失败");
+                          }
+                      }
+                  }
+        		  /*3 注册监听*/
+        		  jsRequest.onreadystatechange=function () {
+        		      //确认readyState和status
+        		      if(jsRequest.readyState==4){
+        		          if(jsRequest.status==200){
+                              // var contentdiv = document.getElementById("content");/*获取DOM中id为luck的p元素*/
+                              // var jsoncontent = JSON.parse(jsRequest.responseText);/*将获取的信息解析为json对象*/
+                              // var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+                              // //jsondiv.innerText = jsoncontent.result;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+                              // contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+                              // var ok = "OK";
+                              // if(ok == jsoncontent.result){
+                              //     alert("发起成功");
+                              // }
+                              // else{
+                              //     alert("发起失败");
+                              // }
+        		              //得到响应参数,将参数显示在div中
+        		              // var result=jsRequest.responseText;
+        		              // var mydiv= document.getElementById("mydiv");
+        		              // mydiv.innerText=result;
+        		          }
+        		      }
+        		  }
+              });
+        
+            });
+        </script>
+		<script type="text/javascript">
+		    $(function(){
+		      var $tooltips = $('.js_tooltips');
+		      var $toast = $('#js_toast');
+		      var $input = $('#js_input6');
+		      $('#showTooltipsss').on('click', function(){
+		          if ($(this).hasClass('weui-btn_disabled')) return;
+		          // toptips的fixed, 如果有`animation`, `position: fixed`不生效
+		          $('.page.cell').removeClass('slideIn');
+		            var $value = $input.val();
+		          if($value.length < 4){
+		            $cell.addClass('weui-cell_warn');
+		            $tooltips.fadeIn(100);
+		            setTimeout(function () {
+		              $tooltips.fadeOut(100);
+		            }, 2000);
+		          }else{
+		            $toast.fadeIn(100);
+		            $toast.attr('aria-live','assertive');
+		            setTimeout(function () {
+		              $toast.fadeOut(100);
+		              $toast.attr('aria-live','off');
+		            }, 2000);
+		          }
+				  /*1 打开与服务器的连接*/
+				  var jsRequest=getAjax();
+				  var a = "js_input9=" + document.getElementById("js_input9").value;
+				  /**
+				   * open(method,url,async) method即提交方式，一般为GET和POST,url为提交的地址，async代表是否异步(true)还是同步(false)
+				   */
+				  jsRequest.open("POST","http://xkb5eb.natappfree.cc/weixin/qinkuang",true);
+				  /*2 发送请求*/
+				  //通知服务器发送的数据是请求参数
+				  jsRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				  jsRequest.send(a);
+		          // jsRequest.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+		          //     if(jsRequest.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+		          //         var contentdiv = document.getElementById("contentt");/*获取DOM中id为luck的p元素*/
+		          //         var jsoncontent = JSON.parse(jsRequest.responseText);/*将获取的信息解析为json对象*/
+		          //         var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+		          //         //jsondiv.innerText = jsoncontent.result;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+		          //         contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+		          //         var ok = "OK";
+		          //         if(ok == jsoncontent.result){
+		          //             alert("发起成功");
+		          //         }
+		          //         else{
+		          //             alert("发起失败");
+		          //         }
+		          //     }
+		          // }
+				  /*3 注册监听*/
+				  jsRequest.onreadystatechange=function () {
+				      //确认readyState和status
+				      if(jsRequest.readyState==4){
+				          if(jsRequest.status==200){
+		                      // var contentdiv = document.getElementById("content");/*获取DOM中id为luck的p元素*/
+		                      // var jsoncontent = JSON.parse(jsRequest.responseText);/*将获取的信息解析为json对象*/
+		                      // var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+		                      // //jsondiv.innerText = jsoncontent.result;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+		                      // contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+		                      // var ok = "OK";
+		                      // if(ok == jsoncontent.result){
+		                      //     alert("发起成功");
+		                      // }
+		                      // else{
+		                      //     alert("发起失败");
+		                      // }
+				              //得到响应参数,将参数显示在div中
+				              // var result=jsRequest.responseText;
+				              // var mydiv= document.getElementById("mydiv");
+				              // mydiv.innerText=result;
+				          }
+				      }
+				  }
+		      });
+		
+		    });
+		</script>
+        <!-- <script type="text/javascript">
+        
+            window.onload = function() { /*设置在页面加载完后执行以下js代码*/
+                // //var url = "http://ij5ezd.natappfree.cc/weixin/person"/*将连接赋到变量url中*/
+                // var request = new XMLHttpRequest();/*用new创建一个XHR对象*/
+                // request.open("GET","http://xkb5eb.natappfree.cc/weixin/shouqian",true);/*设置XHR对象的请求方法与路径*/
+                // request.send(null);/*设置XHR对象不发送数据到服务器*/
+                // request.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+                //     if(request.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+                //         var contentdiv = document.getElementById("texx");/*获取DOM中id为luck的p元素*/
+                //         var jsoncontent = JSON.parse(request.responseText);/*将获取的信息解析为json对象*/
+                //         var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+                //         jsondiv.innerText = jsoncontent.id;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+                //         contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+                //         var contentdiv = document.getElementById("texxx");/*获取DOM中id为luck的p元素*/
+                //         var jsoncontent = JSON.parse(request.responseText);/*将获取的信息解析为json对象*/
+                //         var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+                //         jsondiv.innerText = jsoncontent.name;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+                //         contentdiv.appendChild(jsondiv);
+                //         // var ok = "OK";
+                //         // if(ok == jsoncontent.result){
+                //         //     alert("修改成功");
+                //         // }
+                //     }
+                // }
+				
+            }
+        
+        </script> -->
+		<script type="text/javascript">
+		        var paramobj = {};
+		        window.onload = function () {
+		            //此时parameterURL为:name=张三&age=25
+		            var parameterURL = location.search.substring(1, location.search.length);
+		            //此时paramArr为一个数组:["name=张三","age=25"]
+		            var paramArr = parameterURL.split("&");
+		            var key,value,temp;
+		            //定义2个变量接收key，value并存到paramobj中
+		            for (i = 0; i < paramArr.length; i++) {
+		                temp = paramArr[i].split("=");
+		                if (temp.length === 1) {
+		                    paramobj[temp[0]] = "";
+		                }
+		                else if(temp.length>1){
+		                    for (j = 0; j < temp.length; j++) {
+		                        paramobj[temp[0]] = decodeURIComponent(temp[1]);
+		                    }
+		                }
+		            }
+		            //此时参数已全部保存至paramobj中,这里显示到div
+		            var showStr="";
+		            for (var a in paramobj) {
+		                showStr += (paramobj[a]);
+		            }
+		            document.getElementById("texx").innerText = paramobj["id"];
+					document.getElementById("texxx").innerText = paramobj["name"];
+		        }
+		    </script>
+</body>
+</html>

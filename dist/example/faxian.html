@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+		<title></title>
+		<script type="text/javascript" src="ajax.js"></script>
+		<script>
+		    /*发送请求给服务器*/
+		    function sendRequest(){
+		        /*1 打开与服务器的连接*/
+		        var jsRequest=getAjax();
+		        /**
+		         * open(method,url,async) method即提交方式，一般为GET和POST,url为提交的地址，async代表是否异步(true)还是同步(false)
+		         */
+		        jsRequest.open("POST","http://xkb5eb.natappfree.cc/weixin/qinkuang",true);
+		        /*2 发送请求*/
+		        //通知服务器发送的数据是请求参数
+		        jsRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		        jsRequest.send(null);
+				jsRequest.onload = function() {/*设置当获XHR对象获取到返回信息后执行以下代码*/
+				    if(jsRequest.status == 200) {/*如果返回的状态为200，即为成功获取数据*/
+						var contentdiv = document.getElementById("content");/*获取DOM中id为luck的p元素*/
+						var jsoncontent = JSON.parse(jsRequest.responseText);/*将获取的信息解析为json对象*/
+						var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+						//jsondiv.innerText = jsoncontent.name;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+						contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+						String result = "result";
+						for(i=0;i<40;i++){
+							String temp = result + i;
+							jsondiv.innerText = jsoncontent.temp;
+						}
+				        // var contentdiv = document.getElementById("contentt");/*获取DOM中id为luck的p元素*/
+				        // var jsoncontent = JSON.parse(jsRequest.responseText);/*将获取的信息解析为json对象*/
+				        // var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+				        // jsondiv.innerText = jsoncontent.result;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+				        // contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+				        // var ok = "OK";
+				        // if(ok == jsoncontent.result){
+				        //     alert("发起成功");
+				        // }
+				        // else{
+				        //     alert("发起失败");
+				        // }
+				    }
+				}
+		        /*3 注册监听*/
+		        jsRequest.onreadystatechange=function () {
+		            
+		            //确认readyState和status
+		            if(jsRequest.readyState==4){
+		                if(jsRequest.status==200){
+							// var contentdiv = document.getElementById("content");/*获取DOM中id为luck的p元素*/
+							// var jsoncontent = JSON.parse(jsRequest.responseText);/*将获取的信息解析为json对象*/
+							// var jsondiv = document.createElement("div");/*在js中创建一个div元素命名为jsondiv*/
+							// //jsondiv.innerText = jsoncontent.name;/*将json对象中第一个元素的name属性对应的值写入jsondiv中*/
+							// contentdiv.appendChild(jsondiv);/*将jsondiv放入DOM中，作为contentdiv的子元素*/
+							// String result = "result";
+							// for(i=0;i<40;i++){
+							// 	String temp = result + i;
+							// 	jsondiv.innerText = jsoncontent.temp;
+							// }
+							// //jsondiv.innerText = jsoncontent.name;							
+		                }
+		            }
+		        }
+		    }
+		</script>
+	</head>
+	<body>
+		<input type="button" onclick="sendRequest()" value="获取数据">
+		<div id="content"></div>
+	</body>
+</html>
